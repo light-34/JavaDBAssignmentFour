@@ -3,6 +3,9 @@ package Data;
 import java.sql.*;
 import java.util.ArrayList;
 
+import Business.Customers;
+import Business.Products;
+
 
 
 public class DataIO {
@@ -43,4 +46,30 @@ public class DataIO {
 		stm.execute(sqlQuery);
 		stm.close();
 	}
+	
+	public void insertCustomer(Customers customer) throws SQLException { // insert into table 
+		// first build statement 
+		String strSQL = "Insert into p_programs values ('" + customer.getCustID() + "','" 
+														  + customer.getfName() + "'," 
+														  + customer.getlName() + "',"
+														  + customer.getPhoneNo() + "," 
+														  + customer.getEmail() + ","
+														  + customer.getStreet() + ","
+														  + customer.getCity() + ","
+														  + customer.getProvince() + ","
+														  + customer.getPostalCode() + ")";
+		Statement stm = conn.createStatement();
+		stm.executeUpdate(strSQL);
+		stm.close();
+		}
+	
+	public void insertProduct(Products product) throws SQLException { // insert into table 
+		// first build statement 
+		String strSQL = "Insert into p_programs values ('" + product.getProdID() + "','" 														  
+														  + product.getProductName() + ","
+														  + product.getListPrice() + ")";
+		Statement stm = conn.createStatement();
+		stm.executeUpdate(strSQL);
+		stm.close();
+		}
 }

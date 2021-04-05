@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Business.Customers;
+import Data.DataIO;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -13,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -41,6 +46,8 @@ public class CustomerGUI extends JFrame {
 				try {
 					CustomerGUI frame = new CustomerGUI();
 					frame.setVisible(true);
+					
+					Customers customer = new Customers();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -177,6 +184,35 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(cmbBxProv);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{	
+				// inserting into customer table 
+				//cust id needs work, 
+				
+				try {					
+					DataIO dbIO = new DataIO();
+					Customers customer = new Customers();
+					customer.setfName(txtFName.toString());		
+					customer.setlName(txtLName.toString());
+					customer.setPhoneNo(txtPhoneNo.toString());
+					customer.setEmail(txtEmail.toString());
+					customer.setStreet(txtStreet.toString());
+					customer.setCity(txtCity.toString());
+					customer.setProvince(cmbBxProv.getSelectedItem().toString());
+					customer.setPostalCode(txtPostal.toString());
+					
+					dbIO.insertCustomer(customer);
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+			}
+		});
 		btnSave.setBounds(10, 162, 89, 23);
 		contentPane.add(btnSave);
 		
