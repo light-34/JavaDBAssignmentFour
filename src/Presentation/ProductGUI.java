@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Business.Products;
+import Data.DataIO;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -15,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class ProductGUI extends JFrame {
@@ -111,6 +116,35 @@ public class ProductGUI extends JFrame {
 		contentPane.add(tableProducts);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					Products product = new Products();
+					
+					// Below is to create table 
+					//dbIO.createProductsTable();	
+					
+					// inserting rows below 
+					/// need to work on prod id gen	
+					
+					/*
+					product.setProductName(txtProd_Name.toString());
+					double i = 0.0;		String str = "";   str = txtPrice.toString();
+					i = Double.parseDouble(str);
+					product.setListPrice(i);
+					*/
+					
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
+			}
+		});
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSave.setBounds(10, 416, 128, 37);
 		contentPane.add(btnSave);
@@ -121,6 +155,31 @@ public class ProductGUI extends JFrame {
 		contentPane.add(btnFind);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					Products product = new Products();
+					
+					// updating rows 	
+					/*
+					product.setProductName(txtProd_Name.toString());
+					double i = 0.0;		String str = "";   str = txtPrice.toString();
+					i = Double.parseDouble(str);
+					product.setListPrice(i);
+					
+					dbIO.updateProduct(product);
+					*/
+					
+					
+					
+					
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnUpdate.setBounds(344, 416, 128, 37);
 		contentPane.add(btnUpdate);

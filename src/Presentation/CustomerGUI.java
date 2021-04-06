@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -35,7 +36,7 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtStreet;
 	private JTextField txtCity;
 	private JTextField txtPostal;
-	private JTable tableCustomers;
+	private JTable tableCustomers;	
 
 	/**
 	 * Launch the application.
@@ -190,9 +191,28 @@ public class CustomerGUI extends JFrame {
 				// inserting into customer table 
 				//cust id needs work, 
 				
-				try {					
+				try {	
+					// for testing purposes 
 					DataIO dbIO = new DataIO();
 					Customers customer = new Customers();
+					
+					// need to figure out best method for id gen
+					int i = customer.getCustID();
+					i++;
+					customer.setCustID(i);
+					
+					String str = "";
+					str = String.valueOf(i);
+					
+					txtFName.setText(str);
+					
+					
+					// create table 
+					//dbIO.createCustomersTable();
+					
+					// setting rows from form 
+					/*	
+					customer.setCustID(i);				
 					customer.setfName(txtFName.toString());		
 					customer.setlName(txtLName.toString());
 					customer.setPhoneNo(txtPhoneNo.toString());
@@ -201,8 +221,11 @@ public class CustomerGUI extends JFrame {
 					customer.setCity(txtCity.toString());
 					customer.setProvince(cmbBxProv.getSelectedItem().toString());
 					customer.setPostalCode(txtPostal.toString());
+					*/
+					// inserting rows 
+					//dbIO.insertCustomer(customer);
 					
-					dbIO.insertCustomer(customer);
+					//System.out.println("Connection Success");
 					
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
@@ -217,10 +240,61 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnSave);
 		
 		JButton btnDisplay = new JButton("Display");
+		btnDisplay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					ArrayList<Customers> customers = dbIO.getCustomers(); // call method to return program info from database
+					for(Customers c : customers) // for loop to print 
+					{
+						System.out.println(c);
+					}
+					dbIO = null;
+					// database object is removed 
+					
+					System.exit(0);
+					// exits system 
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnDisplay.setBounds(142, 163, 89, 23);
 		contentPane.add(btnDisplay);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					Customers customer = new Customers();					
+					
+					// getting rows from form 
+					/*									
+					customer.setfName(txtFName.toString());		
+					customer.setlName(txtLName.toString());
+					customer.setPhoneNo(txtPhoneNo.toString());
+					customer.setEmail(txtEmail.toString());
+					customer.setStreet(txtStreet.toString());
+					customer.setCity(txtCity.toString());
+					customer.setProvince(cmbBxProv.getSelectedItem().toString());
+					customer.setPostalCode(txtPostal.toString());
+					
+					dbIO.updateCustomer(customer);
+					*/
+					
+					
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btnUpdate.setBounds(281, 163, 89, 23);
 		contentPane.add(btnUpdate);
 		
