@@ -25,13 +25,14 @@ import java.awt.event.ActionEvent;
 public class ProductGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtProduct_ID;
-	private JTextField txtProd_Name;
+	private JTextField txtProductID;
+	private JTextField txtProdName;
 	private JTextField txtPrice;
 	private JTable tableProducts;
 	private JTextField txtPriceRange1;
 	private JTextField txtPriceRange2;
 	private JTextField txtKeyword;
+	private DataIO data;
 
 	/**
 	 * Launch the application.
@@ -81,10 +82,10 @@ public class ProductGUI extends JFrame {
 		lblProd_ID.setBounds(10, 11, 104, 17);
 		contentPane.add(lblProd_ID);
 		
-		txtProduct_ID = new JTextField();
-		txtProduct_ID.setColumns(10);
-		txtProduct_ID.setBounds(111, 11, 120, 20);
-		contentPane.add(txtProduct_ID);
+		txtProductID = new JTextField();
+		txtProductID.setColumns(10);
+		txtProductID.setBounds(111, 11, 120, 20);
+		contentPane.add(txtProductID);
 		
 		JLabel lblAutoGen = new JLabel("---> Will be auto generated for you");
 		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -96,10 +97,10 @@ public class ProductGUI extends JFrame {
 		lblProd_Name.setBounds(10, 39, 104, 17);
 		contentPane.add(lblProd_Name);
 		
-		txtProd_Name = new JTextField();
-		txtProd_Name.setColumns(10);
-		txtProd_Name.setBounds(121, 39, 164, 20);
-		contentPane.add(txtProd_Name);
+		txtProdName = new JTextField();
+		txtProdName.setColumns(10);
+		txtProdName.setBounds(121, 39, 164, 20);
+		contentPane.add(txtProdName);
 		
 		JLabel lblPrice = new JLabel("List Price");
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -119,30 +120,16 @@ public class ProductGUI extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DataIO dbIO = new DataIO();
-					Products product = new Products();
 					
-					// Below is to create table 
-					//dbIO.createProductsTable();	
+					Products product = new Products(txtProdName.getText(),
+													Double.parseDouble(txtPrice.getText()));
 					
-					// inserting rows below 
-					/// need to work on prod id gen	
+					data.insertProduct(product);
 					
-					/*
-					product.setProductName(txtProd_Name.toString());
-					double i = 0.0;		String str = "";   str = txtPrice.toString();
-					i = Double.parseDouble(str);
-					product.setListPrice(i);
-					*/
-					
-					
-				} catch (ClassNotFoundException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}				
+				} 		
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -158,23 +145,12 @@ public class ProductGUI extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DataIO dbIO = new DataIO();
-					Products product = new Products();
+					Products product = new Products(Integer.parseInt(txtProductID.getText()), 
+													txtProdName.getText(),
+													Double.parseDouble(txtPrice.getText()));
+					data.updateProduct(product);
 					
-					// updating rows 	
-					/*
-					product.setProductName(txtProd_Name.toString());
-					double i = 0.0;		String str = "";   str = txtPrice.toString();
-					i = Double.parseDouble(str);
-					product.setListPrice(i);
-					
-					dbIO.updateProduct(product);
-					*/
-					
-					
-					
-					
-				} catch (ClassNotFoundException | SQLException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

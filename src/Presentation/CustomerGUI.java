@@ -36,7 +36,10 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtStreet;
 	private JTextField txtCity;
 	private JTextField txtPostal;
-	private JTable tableCustomers;	
+	private JTable tableCustomers;
+	private JComboBox<String> cmbBxProv;
+	private DataIO data;
+	
 
 	/**
 	 * Launch the application.
@@ -48,7 +51,6 @@ public class CustomerGUI extends JFrame {
 					CustomerGUI frame = new CustomerGUI();
 					frame.setVisible(true);
 					
-					Customers customer = new Customers();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,6 +62,7 @@ public class CustomerGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CustomerGUI() {
+				
 		ProductGUI prod = new ProductGUI();
 		//CustomerGUI cust = new CustomerGUI();
 		setTitle("Customer Info");
@@ -179,8 +182,12 @@ public class CustomerGUI extends JFrame {
 		txtPostal.setBounds(318, 135, 120, 20);
 		contentPane.add(txtPostal);
 		
-		JComboBox cmbBxProv = new JComboBox();
-		cmbBxProv.setModel(new DefaultComboBoxModel(new String[] {"Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland ", "Nova Scotia", "Ontario", "PEI", "Quebec", "Saskatchewan", "NW Territories", "Nunavut", "Yukon"}));
+		try {
+			DataIO dat = new DataIO();
+			cmbBxProv = new JComboBox<String>(dat.comboBoxLoader());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		cmbBxProv.setBounds(77, 134, 142, 22);
 		contentPane.add(cmbBxProv);
 		
@@ -188,52 +195,23 @@ public class CustomerGUI extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{	
-				// inserting into customer table 
-				//cust id needs work, 
 				
-				try {	
-					// for testing purposes 
-					DataIO dbIO = new DataIO();
-					Customers customer = new Customers();
+				try {						
+					Customers customer = new Customers(txtFName.getText(), 
+													   txtLName.getText(), 
+													   txtPhoneNo.getText(),
+													   txtEmail.getText(),
+													   txtStreet.getText(),
+													   txtCity.getText(),
+													   cmbBxProv.getSelectedItem(),
+													   txtPostal.getText());
 					
-					// need to figure out best method for id gen
-					int i = customer.getCustID();
-					i++;
-					customer.setCustID(i);
+					data.insertCustomer(customer);
 					
-					String str = "";
-					str = String.valueOf(i);
-					
-					txtFName.setText(str);
-					
-					
-					// create table 
-					//dbIO.createCustomersTable();
-					
-					// setting rows from form 
-					/*	
-					customer.setCustID(i);				
-					customer.setfName(txtFName.toString());		
-					customer.setlName(txtLName.toString());
-					customer.setPhoneNo(txtPhoneNo.toString());
-					customer.setEmail(txtEmail.toString());
-					customer.setStreet(txtStreet.toString());
-					customer.setCity(txtCity.toString());
-					customer.setProvince(cmbBxProv.getSelectedItem().toString());
-					customer.setPostalCode(txtPostal.toString());
-					*/
-					// inserting rows 
-					//dbIO.insertCustomer(customer);
-					
-					//System.out.println("Connection Success");
-					
-				} catch (ClassNotFoundException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				}
 			}
 		});
 		btnSave.setBounds(10, 162, 89, 23);
@@ -270,28 +248,21 @@ public class CustomerGUI extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DataIO dbIO = new DataIO();
-					Customers customer = new Customers();					
+					Customers customer = new Customers(txtFName.getText(), 
+							   txtLName.getText(), 
+							   txtPhoneNo.getText(),
+							   txtEmail.getText(),
+							   txtStreet.getText(),
+							   txtCity.getText(),
+							   cmbBxProv.getSelectedItem(),
+							   txtPostal.getText());
 					
-					// getting rows from form 
-					/*									
-					customer.setfName(txtFName.toString());		
-					customer.setlName(txtLName.toString());
-					customer.setPhoneNo(txtPhoneNo.toString());
-					customer.setEmail(txtEmail.toString());
-					customer.setStreet(txtStreet.toString());
-					customer.setCity(txtCity.toString());
-					customer.setProvince(cmbBxProv.getSelectedItem().toString());
-					customer.setPostalCode(txtPostal.toString());
+					data.updateCustomer(customer);
 					
-					dbIO.updateCustomer(customer);
-					*/
-					
-					
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				}catch (Exception ex) {
+					ex.printStackTrace();
 				}
+				
 				
 			}
 		});
