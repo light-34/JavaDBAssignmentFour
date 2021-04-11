@@ -32,7 +32,6 @@ public class ProductGUI extends JFrame {
 	private JTextField txtPriceRange1;
 	private JTextField txtPriceRange2;
 	private JTextField txtKeyword;
-	private DataIO data;
 
 	/**
 	 * Launch the application.
@@ -120,7 +119,7 @@ public class ProductGUI extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
+					DataIO data = new DataIO();
 					Products product = new Products(txtProdName.getText(),
 													Double.parseDouble(txtPrice.getText()));
 					
@@ -145,6 +144,7 @@ public class ProductGUI extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					DataIO data = new DataIO();
 					Products product = new Products(Integer.parseInt(txtProductID.getText()), 
 													txtProdName.getText(),
 													Double.parseDouble(txtPrice.getText()));

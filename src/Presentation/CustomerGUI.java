@@ -28,7 +28,7 @@ import javax.swing.JTable;
 public class CustomerGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtCust_ID;
+	private JTextField txtCustId;
 	private JTextField txtFName;
 	private JTextField txtLName;
 	private JTextField txtPhoneNo;
@@ -37,8 +37,7 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtCity;
 	private JTextField txtPostal;
 	private JTable tableCustomers;
-	private JComboBox<String> cmbBxProv;
-	private DataIO data;
+	private JComboBox cmbBxProv;
 	
 
 	/**
@@ -64,7 +63,7 @@ public class CustomerGUI extends JFrame {
 	public CustomerGUI() {
 				
 		ProductGUI prod = new ProductGUI();
-		//CustomerGUI cust = new CustomerGUI();
+		
 		setTitle("Customer Info");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 622);
@@ -137,10 +136,10 @@ public class CustomerGUI extends JFrame {
 		lblPostalCode.setBounds(229, 135, 89, 17);
 		contentPane.add(lblPostalCode);
 		
-		txtCust_ID = new JTextField();
-		txtCust_ID.setBounds(111, 23, 120, 20);
-		contentPane.add(txtCust_ID);
-		txtCust_ID.setColumns(10);
+		txtCustId = new JTextField();
+		txtCustId.setBounds(111, 23, 120, 20);
+		contentPane.add(txtCustId);
+		txtCustId.setColumns(10);
 		
 		txtFName = new JTextField();
 		txtFName.setColumns(10);
@@ -182,9 +181,10 @@ public class CustomerGUI extends JFrame {
 		txtPostal.setBounds(318, 135, 120, 20);
 		contentPane.add(txtPostal);
 		
+		
 		try {
 			DataIO dat = new DataIO();
-			cmbBxProv = new JComboBox<String>(dat.comboBoxLoader());
+			cmbBxProv = new JComboBox(dat.comboBoxLoader());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -196,7 +196,8 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{	
 				
-				try {						
+				try {
+					DataIO data = new DataIO();
 					Customers customer = new Customers(txtFName.getText(), 
 													   txtLName.getText(), 
 													   txtPhoneNo.getText(),
@@ -248,7 +249,9 @@ public class CustomerGUI extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Customers customer = new Customers(txtFName.getText(), 
+					DataIO data = new DataIO();
+					Customers customer = new Customers(Integer.parseInt(txtCustId.getText()),
+							txtFName.getText(), 
 							   txtLName.getText(), 
 							   txtPhoneNo.getText(),
 							   txtEmail.getText(),
