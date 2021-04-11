@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -283,6 +284,29 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnExit);
 		
 		JButton btnFirst = new JButton("First");
+		btnFirst.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				try {
+					DataIO dbIO = new DataIO();
+					ArrayList<Customers> customers = dbIO.first(); // call method to return program info from database
+					for(Customers c : customers) // for loop to print 
+					{
+						System.out.println(c.getfName());
+					}
+					dbIO = null;
+					// database object is removed 
+					
+					//System.exit(0);
+					// exits system 
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnFirst.setBounds(10, 535, 89, 23);
 		contentPane.add(btnFirst);
 		

@@ -195,4 +195,34 @@ public class DataIO {
 		
 		return list;
 	}
+	// get the first result in result set 
+	public ArrayList<Customers> first() throws SQLException {
+		ArrayList<Customers> custList = new ArrayList<Customers>();
+		
+		String sqlQuery = "Select * from C_CUSTOMERS";
+		
+		Statement stm = conn.createStatement();
+		stm.setMaxRows(1); // only retrieve one row 
+		// could use first()???
+		ResultSet rst = stm.executeQuery(sqlQuery);
+		//rst.first(); // not working properly 
+		
+		while (rst.next())
+		{
+			Customers cust1 = new Customers(rst.getInt(1), 
+											rst.getString(2), 
+											rst.getString(3), 
+											rst.getString(4),
+											rst.getString(5), 
+											rst.getString(6), 
+											rst.getString(7), 
+											rst.getString(8), 
+											rst.getString(9));
+			custList.add(cust1);
+		}
+		
+		rst.close();
+		stm.close();
+		return custList;		
+	}
 }
