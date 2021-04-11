@@ -42,8 +42,8 @@ public class DataIO {
 	public void createProductsTable() throws SQLException {
 		String sqlQuery = "Create Table p_products ("
 				+ "ProductID Number(3) PRIMARY KEY,"
-				+ "PRODUCT_NAME (30) NOT NULL,"
-				+ "LIST_PRICE double (6,2) NOT NULL"
+				+ "PRODUCT_NAME Varchar2 (30) NOT NULL,"
+				+ "LIST_PRICE Number (6,2) NOT NULL"
 				+ ")";
 		
 		Statement stm = conn.createStatement();
@@ -56,7 +56,7 @@ public class DataIO {
 		
 		System.out.println("Insert Customer Table works");
 		
-		String strSQL = "Insert into c_customers (fname, lname, phone, email, street, city, province, postal_code) "
+		String strSQL = "Insert into c_customers (fname, lname, phone, email, street, city, province, post_code) "
 														  + "values ('" + customer.getfName() + "', '" 
 														  + customer.getlName() + "','"
 														  + customer.getPhoneNo() + "','" 
