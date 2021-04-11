@@ -288,7 +288,7 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {				
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.first(); // call method to return program info from database
+					ArrayList<Customers> customers = dbIO.firstCust(); // call method to return program info from database
 					for(Customers c : customers) // for loop to print 
 					{
 						System.out.println(c.getfName());
@@ -319,6 +319,29 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnPrev);
 		
 		JButton btnLast = new JButton("Last");
+		btnLast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					ArrayList<Customers> customers = dbIO.lastCust(); // call method to return program info from database
+					for(Customers c : customers) // for loop to print 
+					{
+						System.out.println(c.getfName());
+					}
+					dbIO = null;
+					// database object is removed 
+					
+					//System.exit(0);
+					// exits system 
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnLast.setBounds(420, 535, 89, 23);
 		contentPane.add(btnLast);
 		
