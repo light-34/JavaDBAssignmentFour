@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Business.Customers;
 import Business.Products;
+import Presentation.CustomerGUI;
 
 
 
@@ -12,22 +13,24 @@ public class DataIO {
 	
 	private Connection conn = null;
 	
+	//This Constructor is used to connect the DB
 	public DataIO() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		conn = DriverManager.getConnection(DBProps.getDBURL(), DBProps.getConnectionProps());
 	}
 	
+	//This method is designed to create Customers Table
 	public void createCustomersTable() throws SQLException {
-		String sqlQuery = "Create Table C_Customers (\n"
-				+ "C_ID int PRIMARY KEY,\n"
-				+ "F_NAME varchar2 (30) NOT NULL,\n"
-				+ "L_NANE varchar2 (30) NOT NULL,\n"
-				+ "PHONE_NO varchar2 (10),\n"
-				+ "EMAIL varchar2 (30) NOT NULL,\n"
-				+ "STREET varchar2 (50),\n"
-				+ "CITY varchar2 (30),\n"
-				+ "PROVINCE varchar2 (20),\n"
-				+ "POST_CODE varchar2 (6)\n"
+		String sqlQuery = "Create Table C_Customers ("
+				+ "CustomerID Number(4) PRIMARY KEY,"
+				+ "FNAME varchar2 (30) NOT NULL,"
+				+ "LNAME varchar2 (30) NOT NULL,"
+				+ "PHONE varchar2 (10),"
+				+ "EMAIL varchar2 (30) NOT NULL,"
+				+ "STREET varchar2 (50),"
+				+ "CITY varchar2 (30),"
+				+ "PROVINCE varchar2 (20),"
+				+ "POST_CODE varchar2 (6)"
 				+ ")";
 		
 		Statement stm = conn.createStatement();
@@ -35,11 +38,12 @@ public class DataIO {
 		stm.close();
 	}
 	
+	//This method is designed to create Products Table
 	public void createProductsTable() throws SQLException {
-		String sqlQuery = "Create Table P_Products (\n"	
-				+ "STREET int PRIMARY KEY,\n"
-				+ "PRODUCT_NAME (30) NOT NULL,\n"
-				+ "LIST_PRICE double (6,2) NOT NULL\n"
+		String sqlQuery = "Create Table p_products ("
+				+ "ProductID Number(3) PRIMARY KEY,"
+				+ "PRODUCT_NAME (30) NOT NULL,"
+				+ "LIST_PRICE double (6,2) NOT NULL"
 				+ ")";
 		
 		Statement stm = conn.createStatement();
@@ -47,63 +51,49 @@ public class DataIO {
 		stm.close();
 	}
 	
-	public void insertCustomer(Customers customer) throws SQLException { // insert into table 
-		// first build statement 
-		String strSQL = "Insert into p_programs values ('" + customer.getCustID() + "','" 
-														  + customer.getfName() + "'," 
-														  + customer.getlName() + "',"
-														  + customer.getPhoneNo() + "," 
-														  + customer.getEmail() + ","
-														  + customer.getStreet() + ","
-														  + customer.getCity() + ","
-														  + customer.getProvince() + ","
-														  + customer.getPostalCode() + ")";
+	//This method is used to INSERT data into the customers table
+	public void insertCustomer(Customers customer) throws SQLException { 
+		
+		System.out.println("Insert Customer Table works");
+		
+		String strSQL = "Insert into c_customers (fname, lname, phone, email, street, city, province, postal_code) "
+														  + "values ('" + customer.getfName() + "', '" 
+														  + customer.getlName() + "','"
+														  + customer.getPhoneNo() + "','" 
+														  + customer.getEmail() + "','"
+														  + customer.getStreet() + "','"
+														  + customer.getCity() + "','"
+														  + customer.getProvince() + "','"
+														  + customer.getPostalCode() + "')";
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
+		
+		System.out.println("Insert Customer Table Data Inserted");
+		
 		stm.close();
 		}
 	
-	public void insertProduct(Products product) throws SQLException { // insert into table 
-		// first build statement 
-		String strSQL = "Insert into p_programs values ('" + product.getProdID() + "','" 														  
-														  + product.getProductName() + ","
+	//This method is used to INSERT data into the products table
+	public void insertProduct(Products product) throws SQLException { 
+		
+		System.out.println("Insert Products Table works");
+		
+		String strSQL = "Insert into p_products (product_name, list_price) values ('" 														  
+														  + product.getProductName() + "',"
 														  + product.getListPrice() + ")";
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
+		
+		System.out.println("Insert Products Table Data Inserted");
+		
 		stm.close();
 		}
 	
+	//This method is designed to add all rows in Customers Table into an ArrayList
 	public ArrayList<Customers> getCustomers() throws SQLException {
-		ArrayList<Customers> customers = new ArrayList<Customers>();
+		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
-		String sqlQuery = "Select * from C_CUSTOMERS"; // table we created 
-		
-		Statement stm = conn.createStatement();
-		
-		ResultSet rst = stm.executeQuery(sqlQuery);
-		
-		while (rst.next())
-		{
-			Customers customer = new Customers();
-			customer.setCustID(rst.getInt(1));
-			customer.setfName(rst.getString(2));
-			customer.setlName(rst.getString(3));
-			customer.setPhoneNo(rst.getString(4));
-			customer.setEmail(rst.getString(5));
-			customer.setStreet(rst.getString(6));
-			customer.setCity(rst.getString(7));
-			customer.setProvince(rst.getString(8));
-			customer.setPostalCode(rst.getString(9));
-		}
-		rst.close();
-		stm.close();
-		return customers;		
-	}
-	
-	public ArrayList<Customers> getProducts() throws SQLException {
-		ArrayList<Customers> customers = new ArrayList<Customers>();
-		
-		String sqlQuery = "Select * from P_PRODUCTS"; // table we created 
+		String sqlQuery = "Select * from C_CUSTOMERS";
 		
 		Statement stm = conn.createStatement();
 		
@@ -111,45 +101,98 @@ public class DataIO {
 		
 		while (rst.next())
 		{
-			Products product = new Products();
-			product.setProdID(rst.getInt(1));
-			product.setProductName(rst.getString(2));
-			product.setListPrice(rst.getDouble(3));			
+			Customers cust1 = new Customers(rst.getInt(1), 
+											rst.getString(2), 
+											rst.getString(3), 
+											rst.getString(4),
+											rst.getString(5), 
+											rst.getString(6), 
+											rst.getString(7), 
+											rst.getString(8), 
+											rst.getString(9));
+			custList.add(cust1);
+		}
+		
+		rst.close();
+		stm.close();
+		return custList;		
+	}
+	
+	
+	//This method is designed to add all rows in Products Table into an ArrayList
+	public ArrayList<Products> getProducts() throws SQLException {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+		
+		String sqlQuery = "Select * from P_PRODUCTS";
+		
+		Statement stm = conn.createStatement();
+		
+		ResultSet rst = stm.executeQuery(sqlQuery);
+		
+		while (rst.next())
+		{
+			Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+			prodList.add(product);
+			
 		}
 		rst.close();
 		stm.close();
-		return customers;		
+		return prodList;		
 	}
 	
-	public void updateCustomer(Customers customer) throws SQLException { // insert into table 
-		// first build statement 
-		String strSQL = "Update C_CUSTOMERS set F_NAME = '" 
+	
+	//This method is designed to update rows in Customers Table
+	public void updateCustomer(Customers customer) throws SQLException {
+		String strSQL = "Update C_CUSTOMERS set FNAME = '" 
 						+ customer.getfName() + "'"  
-						+ ", L_NAME = "+ customer.getlName()   
-						+ ", PHONE_NO = " + customer.getPhoneNo() 
-						+ ", EMAIL = " + customer.getEmail()
-						+ ", STREET = " + customer.getStreet()
-						+ ", CITY = " + customer.getCity()
-						+ ", PROVINCE = " + customer.getProvince()
-						+ ", POST_CODE = " + customer.getPostalCode()
-						+ "where C_ID = '" 
-						+ customer.getCustID() + "'";	
+						+ ", LNAME = '"+ customer.getlName()   
+						+ "', PHONE = '" + customer.getPhoneNo() 
+						+ "', EMAIL = '" + customer.getEmail()
+						+ "', STREET = '" + customer.getStreet()
+						+ "', CITY = '" + customer.getCity()
+						+ "', PROVINCE = '" + customer.getProvince()
+						+ "', POST_CODE = '" + customer.getPostalCode()
+						+ "' where CustomerID = " 
+						+ customer.getCustomerid();	
 		
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
 		stm.close();
 		}
 	
-	public void updateProduct(Products product) throws SQLException { // insert into table 
-		// first build statement 
+	//This method is designed to update rows in Products Table
+	public void updateProduct(Products product) throws SQLException {
+		
 		String strSQL = "Update P_PRODUCTS set PRODUCT_NAME = '" 
 						+ product.getProductName() + "'"  
 						+ ", LIST_PRICE = "+ product.getListPrice()   						
-						+ "where P_ID = '" 
-						+ product.getProdID() + "'";	
+						+ "where ProductID = " 
+						+ product.getProductid();	
 		
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
 		stm.close();
 		}
+	
+	public String[] comboBoxLoader () throws SQLException {
+		//ArrayList<String> arrList = new ArrayList<>();
+		String [] list = new String[14];
+		int i = 0;
+		
+		String sqlQuery = "SELECT * FROM PROVINCES ORDER BY PROVINCENAME" ;
+		
+		Statement stm = conn.createStatement();
+		
+		ResultSet rst = stm.executeQuery(sqlQuery);
+		
+		while (rst.next())
+		{
+			list[i] = rst.getString("provincename");
+			i++;
+		}
+		
+		stm.close();
+		
+		return list;
+	}
 }

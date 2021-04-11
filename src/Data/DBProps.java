@@ -5,7 +5,7 @@ import java.util.Properties;
 public class DBProps { 	
 	private static Properties connectionProps = new Properties();	
 	public static Properties getConnectionProps() {
-		connectionProps.put("user" , "n01454913");
+		connectionProps.put("user" , "n01379944");
 		connectionProps.put("password" , "oracle");
 		return connectionProps;
 	}	
