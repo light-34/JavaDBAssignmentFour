@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class ProductGUI extends JFrame {
 
@@ -72,6 +73,7 @@ public class ProductGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblProd_ID = new JLabel("Product ID");
+		lblProd_ID.setForeground(Color.RED);
 		lblProd_ID.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblProd_ID.setBounds(10, 11, 104, 17);
 		contentPane.add(lblProd_ID);
@@ -82,6 +84,7 @@ public class ProductGUI extends JFrame {
 		contentPane.add(txtProductID);
 		
 		JLabel lblAutoGen = new JLabel("---> Will be auto generated for you");
+		lblAutoGen.setForeground(Color.RED);
 		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAutoGen.setBounds(228, 11, 254, 17);
 		contentPane.add(lblAutoGen);
@@ -107,6 +110,8 @@ public class ProductGUI extends JFrame {
 		contentPane.add(txtPrice);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.setBackground(Color.GREEN);
+		btnSave.setForeground(Color.BLACK);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -127,6 +132,7 @@ public class ProductGUI extends JFrame {
 		contentPane.add(btnSave);
 		
 		JButton btnFind = new JButton("Find");
+		btnFind.setBackground(Color.ORANGE);
 		btnFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -171,6 +177,7 @@ public class ProductGUI extends JFrame {
 		contentPane.add(btnFind);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBackground(Color.YELLOW);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -191,7 +198,7 @@ public class ProductGUI extends JFrame {
 		contentPane.add(btnUpdate);
 		
 		JLabel lblPriceRange = new JLabel("Price Range");
-		lblPriceRange.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPriceRange.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblPriceRange.setBounds(10, 380, 86, 25);
 		contentPane.add(lblPriceRange);
 		
@@ -211,7 +218,7 @@ public class ProductGUI extends JFrame {
 		contentPane.add(txtPriceRange2);
 		
 		JLabel lblKeyword = new JLabel("Keyword");
-		lblKeyword.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblKeyword.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblKeyword.setBounds(208, 380, 86, 25);
 		contentPane.add(lblKeyword);
 		
