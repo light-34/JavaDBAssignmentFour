@@ -86,6 +86,7 @@ public class CustomerGUI extends JFrame {
 		JMenuItem mnuItemExit = new JMenuItem("Exit");
 		mnuSystem.add(mnuItemExit);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 224));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
