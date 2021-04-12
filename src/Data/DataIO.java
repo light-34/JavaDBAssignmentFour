@@ -291,5 +291,97 @@ public class DataIO {
 		rst.close();
 		stm.close();
 		return custList;		
-	}	
+	}
+	
+	//Search for Keyword
+	public ArrayList<Products> findProducts(String str) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+		
+		String sqlQuery = "Select * from P_PRODUCTS where product_name = ? ";
+		
+		try {
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setString(1, str);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		return prodList;
+	}
+	
+	//Search for ProductID
+	public ArrayList<Products> findProducts(int num) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+				
+		String sqlQuery = "Select * from P_PRODUCTS where productid = ?";
+		
+		try {
+			
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setInt(1, num);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		return prodList;
+	}
+	
+	//Search for Price Range
+	public ArrayList<Products> findProducts(double numOne, double numTwo) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+		
+		String sqlQuery = "Select * from P_PRODUCTS where list_price Between ? And ?";
+		
+		try {
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setDouble(1, numOne);
+			prepState.setDouble(2, numTwo);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return prodList;
+	}
 }
