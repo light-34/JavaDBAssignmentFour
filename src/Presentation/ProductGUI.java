@@ -152,6 +152,7 @@ public class ProductGUI extends JFrame {
 						for(Products list : data.findProducts(txtKeyword.getText())) {
 							
 							str +=list.getProductid() + "\t" + list.getProductName() + "\t" + list.getListPrice() +"\n";
+							
 						}
 						txtArea.setText(str);
 					}

@@ -9,7 +9,8 @@ import Business.Products;
 public class DataIO {
 
 	private Connection conn = null;
-
+	public static int pos = 1;
+	
 	// This Constructor is used to connect the DB
 	public DataIO() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -158,7 +159,9 @@ public class DataIO {
 	// get the first result in result set - cust table
 	public ArrayList<Customers> firstCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
+		
 		try {
+			
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -166,7 +169,7 @@ public class DataIO {
 			ResultSet rst = stm.executeQuery(sqlQuery);
 
 			while (rst.next()) {
-				if (rst.isFirst()) {
+				if (rst.isFirst()) { pos = 1;
 					Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 							rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
 					custList.add(cust1);
@@ -175,6 +178,7 @@ public class DataIO {
 
 			rst.close();
 			stm.close();
+			pos += 1;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -187,14 +191,16 @@ public class DataIO {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
 		try {
+			
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
 			ResultSet rst = stm.executeQuery(sqlQuery);
+			
 
 			while (rst.next()) {
-				if (rst.isLast()) {
+				if (rst.isLast()) { pos = rst.getRow();
 					Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 							rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
 					custList.add(cust1);
@@ -203,6 +209,7 @@ public class DataIO {
 
 			rst.close();
 			stm.close();
+			pos -= 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,12 +221,15 @@ public class DataIO {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
 		try {
+			
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rst = stm.executeQuery(sqlQuery);
 
-			rst.next();
+			//rst.next();
+			rst.absolute(pos);
+			pos +=1;
 
 			Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 					rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
@@ -237,15 +247,16 @@ public class DataIO {
 	public ArrayList<Customers> prevCust(int j) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
-		try {
+		try {			
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			// stm.setMaxRows(1);
 			ResultSet rst = stm.executeQuery(sqlQuery);
-
-			rst.last();
-			rst.relative(-j);
+			
+			//rst.last();
+			rst.absolute(pos);			
+			pos -=1;
 			Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 					rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
 
@@ -268,6 +279,7 @@ public class DataIO {
 
 		try {
 			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			
 			prepState.setString(1, str);
 
 			ResultSet rst = prepState.executeQuery();
