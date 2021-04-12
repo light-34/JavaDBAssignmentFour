@@ -84,6 +84,11 @@ public class CustomerGUI extends JFrame {
 		mnuSystem.add(mnuItemProduct);
 		
 		JMenuItem mnuItemExit = new JMenuItem("Exit");
+		mnuItemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		mnuSystem.add(mnuItemExit);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 224));
@@ -284,7 +289,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnExit);
 		
 		JButton btnFirst = new JButton("First");
-		btnFirst.setBackground(Color.BLUE);
+		btnFirst.setBackground(new Color(135, 206, 235));
 		btnFirst.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				try {
@@ -397,7 +402,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnPrev);
 		
 		JButton btnLast = new JButton("Last");
-		btnLast.setBackground(Color.BLUE);
+		btnLast.setBackground(new Color(135, 206, 235));
 		btnLast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
