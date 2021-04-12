@@ -291,4 +291,35 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		stm.close();
 		return custList;		
 	}	
+
+public ArrayList<Customers> prevCust(int i) throws SQLException {
+	ArrayList<Customers> custList = new ArrayList<Customers>();
+	
+	String sqlQuery = "Select * from C_CUSTOMERS";
+	
+	Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	//stm.setMaxRows(1);
+	ResultSet rst = stm.executeQuery(sqlQuery);	
+		
+		if(rst.relative(-i))	// or absolute()?
+		{	
+			
+				Customers cust1 = new Customers(rst.getInt(1), 
+										rst.getString(2), 
+										rst.getString(3), 
+										rst.getString(4),
+										rst.getString(5), 
+										rst.getString(6), 
+										rst.getString(7), 
+										rst.getString(8), 
+										rst.getString(9));
+		custList.add(cust1);	
+								
+			
+	}			
+	
+	rst.close();
+	stm.close();
+	return custList;		
+}	
 }
