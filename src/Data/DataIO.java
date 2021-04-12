@@ -292,7 +292,7 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		return custList;		
 	}	
 
-public ArrayList<Customers> prevCust(int i) throws SQLException {
+public ArrayList<Customers> prevCust(int j) throws SQLException {
 	ArrayList<Customers> custList = new ArrayList<Customers>();
 	
 	String sqlQuery = "Select * from C_CUSTOMERS";
@@ -301,7 +301,7 @@ public ArrayList<Customers> prevCust(int i) throws SQLException {
 	//stm.setMaxRows(1);
 	ResultSet rst = stm.executeQuery(sqlQuery);	
 		
-		if(rst.relative(-i))	// or absolute()?
+		if(rst.relative(-j))	// or absolute()?
 		{	
 			
 				Customers cust1 = new Customers(rst.getInt(1), 
