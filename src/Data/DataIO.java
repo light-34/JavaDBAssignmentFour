@@ -9,7 +9,7 @@ import Business.Products;
 public class DataIO {
 
 	private Connection conn = null;
-	public static int pos = 1;
+	public static int pos = 0;
 	
 	// This Constructor is used to connect the DB
 	public DataIO() throws ClassNotFoundException, SQLException {
@@ -178,7 +178,7 @@ public class DataIO {
 
 			rst.close();
 			stm.close();
-			pos += 1;
+			//pos += 1;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -209,7 +209,7 @@ public class DataIO {
 
 			rst.close();
 			stm.close();
-			pos -= 1;
+			//pos -= 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,7 +221,7 @@ public class DataIO {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
 		try {
-			
+			pos += 1;
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -229,7 +229,7 @@ public class DataIO {
 
 			//rst.next();
 			rst.absolute(pos);
-			pos +=1;
+			//pos +=1;
 
 			Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 					rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
@@ -247,7 +247,8 @@ public class DataIO {
 	public ArrayList<Customers> prevCust(int j) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
-		try {			
+		try {
+			pos -=1;			
 			String sqlQuery = "Select * from C_CUSTOMERS";
 
 			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -256,7 +257,7 @@ public class DataIO {
 			
 			//rst.last();
 			rst.absolute(pos);			
-			pos -=1;
+			
 			Customers cust1 = new Customers(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getString(4),
 					rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
 
