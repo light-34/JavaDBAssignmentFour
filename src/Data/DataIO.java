@@ -54,6 +54,14 @@ public class DataIO {
 		stm.executeUpdate(strSQL);
 
 		System.out.println("Insert Customer Table Data Inserted");
+		JOptionPane.showMessageDialog(null,"Customer added\nCustomer Name: " +  customer.getfName() + ", " + customer.getlName()
+		+ "\nPhone No: "+customer.getPhoneNo()
+		+ "\nEmail: "+customer.getEmail()
+		+ "\nStreet: "+customer.getStreet()
+		+ "\nCity: "+customer.getCity()
+		+ "\nProv: "+customer.getProvince()
+		+ "\nPostal Code: "+customer.getPostalCode()
+		);
 
 		stm.close();
 	}
@@ -69,6 +77,9 @@ public class DataIO {
 		stm.executeUpdate(strSQL);
 
 		System.out.println("Insert Products Table Data Inserted");
+		JOptionPane.showMessageDialog(null,"Product added\nProduct Name: "  + product.getProductName()
+		+ "\nList Price: " + product.getListPrice()
+		);
 
 		stm.close();
 	}
@@ -88,6 +99,7 @@ public class DataIO {
 					rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9));
 			custList.add(cust1);
 		}
+		
 
 		rst.close();
 		stm.close();
@@ -125,6 +137,14 @@ public class DataIO {
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
 		stm.close();
+		JOptionPane.showMessageDialog(null,"Customer Updated\nCustomer Name: " +  customer.getfName() + ", " + customer.getlName()
+		+ "\nPhone No: "+customer.getPhoneNo()
+		+ "\nEmail: "+customer.getEmail()
+		+ "\nStreet: "+customer.getStreet()
+		+ "\nCity: "+customer.getCity()
+		+ "\nProv: "+customer.getProvince()
+		+ "\nPostal Code: "+customer.getPostalCode()
+		);
 	}
 
 	// This method is designed to update rows in Products Table
@@ -136,6 +156,9 @@ public class DataIO {
 		Statement stm = conn.createStatement();
 		stm.executeUpdate(strSQL);
 		stm.close();
+		JOptionPane.showMessageDialog(null,"Product added\nProduct Name: "  + product.getProductName()
+		+ "\nList Price: " + product.getListPrice()
+		);
 	}
 
 	public String[] comboBoxLoader() throws SQLException {
