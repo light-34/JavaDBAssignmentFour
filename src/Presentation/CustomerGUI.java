@@ -34,6 +34,7 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtPostal;
 	private JComboBox cmbBxProv;
 	private JTextArea txtArea;
+	public int i = 1;
 	
 
 	/**
@@ -300,12 +301,13 @@ public class CustomerGUI extends JFrame {
 		btnFirst.setBounds(10, 535, 89, 23);
 		contentPane.add(btnFirst);
 		
-		JButton btnNext = new JButton("Next ");
+		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.nextCust(); // call method to return program info from database
+					ArrayList<Customers> customers = dbIO.nextCust(i);
+					i++;
 					for(Customers c : customers) // for loop to print 
 					{
 						System.out.println(c.getfName());

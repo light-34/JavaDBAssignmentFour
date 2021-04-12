@@ -260,22 +260,21 @@ public class DataIO {
 		stm.close();
 		return custList;		
 	}	
-	public ArrayList<Customers> nextCust() throws SQLException {
+
+public ArrayList<Customers> nextCust(int i) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
 		String sqlQuery = "Select * from C_CUSTOMERS";
 		
 		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-		
-		ResultSet rst = stm.executeQuery(sqlQuery);
-		
-		//rst.last(); // not working properly 
-		
-		while (rst.next())
-		{
-			if(rst.relative(1)) // doesn't work exactly right 
-			{
-				Customers cust1 = new Customers(rst.getInt(1), 
+		//stm.setMaxRows(1);
+		ResultSet rst = stm.executeQuery(sqlQuery);	
+			
+			if(rst.relative(i))	
+			{	
+				while(rst.next())
+				{
+					Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
 											rst.getString(4),
@@ -284,9 +283,11 @@ public class DataIO {
 											rst.getString(7), 
 											rst.getString(8), 
 											rst.getString(9));
-			custList.add(cust1);
-			}			
-		}
+			custList.add(cust1);	
+				}
+						
+				
+		}			
 		
 		rst.close();
 		stm.close();
