@@ -281,10 +281,20 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {				
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.firstCust(); // call method to return program info from database
+					ArrayList<Customers> customers = dbIO.firstCust();
+					// call method to return program info from database
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());	
+						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
@@ -312,13 +322,20 @@ public class CustomerGUI extends JFrame {
 					i++;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName() + " " + c.getlName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());	
+						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
-					// database object is removed 
+					// database object is removed 				
 					
-					//System.exit(0);
-					// exits system 
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -340,7 +357,16 @@ public class CustomerGUI extends JFrame {
 					j--;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName() + " " + c.getlName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());	
+						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
@@ -367,7 +393,16 @@ public class CustomerGUI extends JFrame {
 					ArrayList<Customers> customers = dbIO.lastCust(); // call method to return program info from database
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());	
+						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
