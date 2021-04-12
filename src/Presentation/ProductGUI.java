@@ -1,26 +1,21 @@
 package Presentation;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Business.Products;
 import Data.DataIO;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class ProductGUI extends JFrame {
 
@@ -28,10 +23,10 @@ public class ProductGUI extends JFrame {
 	private JTextField txtProductID;
 	private JTextField txtProdName;
 	private JTextField txtPrice;
-	private JTable tableProducts;
 	private JTextField txtPriceRange1;
 	private JTextField txtPriceRange2;
 	private JTextField txtKeyword;
+	private JTextArea txtArea;
 
 	/**
 	 * Launch the application.
@@ -111,10 +106,6 @@ public class ProductGUI extends JFrame {
 		txtPrice.setBounds(386, 39, 86, 20);
 		contentPane.add(txtPrice);
 		
-		tableProducts = new JTable();
-		tableProducts.setBounds(10, 67, 462, 302);
-		contentPane.add(tableProducts);
-		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,6 +127,44 @@ public class ProductGUI extends JFrame {
 		contentPane.add(btnSave);
 		
 		JButton btnFind = new JButton("Find");
+		btnFind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO data = new DataIO();
+					String str = "Product ID" + "\t" + "Product Name" + "\t" + "Price\n";
+					if (!txtProductID.getText().isEmpty()) {
+
+						for(Products list : data.findProducts(Integer.parseInt(txtProductID.getText()))) {
+							str +=list.getProductid() + "\t" + list.getProductName() + "\t" + list.getListPrice() +"\n";
+						}
+						txtArea.setText(str);
+						
+					} else if (!txtPriceRange1.getText().isEmpty() && !txtPriceRange2.getText().isEmpty()) {
+						
+						for(Products list : data.findProducts(Double.parseDouble(txtPriceRange1.getText()), Double.parseDouble(txtPriceRange2.getText()))) {
+							
+							str +=list.getProductid() + "\t" + list.getProductName() + "\t" + list.getListPrice() +"\n";
+						}
+						txtArea.setText(str);
+					}
+					else if (!txtKeyword.getText().isEmpty()){	
+						data.findProducts(txtKeyword.getText());
+						for(Products list : data.findProducts(txtKeyword.getText())) {
+							
+							str +=list.getProductid() + "\t" + list.getProductName() + "\t" + list.getListPrice() +"\n";
+						}
+						txtArea.setText(str);
+					}
+					else {
+						str = "Something is wrong!!!" + "\nMake sure you entered a search criteria";
+						txtArea.setText(str);
+					}
+				}catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+		});
 		btnFind.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnFind.setBounds(177, 416, 128, 37);
 		contentPane.add(btnFind);
@@ -189,5 +218,9 @@ public class ProductGUI extends JFrame {
 		txtKeyword.setColumns(10);
 		txtKeyword.setBounds(279, 384, 193, 20);
 		contentPane.add(txtKeyword);
+		
+		txtArea = new JTextArea();
+		txtArea.setBounds(10, 67, 460, 302);
+		contentPane.add(txtArea);
 	}
 }

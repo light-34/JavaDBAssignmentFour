@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import Business.Customers;
 import Business.Products;
-import Presentation.CustomerGUI;
 
 
 
@@ -175,7 +174,6 @@ public class DataIO {
 		}
 	
 	public String[] comboBoxLoader () throws SQLException {
-		//ArrayList<String> arrList = new ArrayList<>();
 		String [] list = new String[14];
 		int i = 0;
 		
@@ -195,6 +193,8 @@ public class DataIO {
 		
 		return list;
 	}
+	
+	
 	// get the first result in result set - cust table 
 	public ArrayList<Customers> firstCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
@@ -223,6 +223,7 @@ public class DataIO {
 				custList.add(cust1);
 				}			
 			}			
+<<<<<<< HEAD
 			rst.close();
 			stm.close();
 			
@@ -232,6 +233,16 @@ public class DataIO {
 		}	
 		return custList;	
 	}	
+=======
+		}
+		
+		rst.close();
+		stm.close();
+		return custList;		
+	}
+	
+	
+>>>>>>> 16659ecfedc2fa49fc1d5fa9b5c6b4efae2ee65a
 	public ArrayList<Customers> lastCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
@@ -270,7 +281,7 @@ public class DataIO {
 		return custList;		
 	}	
 
-public ArrayList<Customers> nextCust(int i) throws SQLException {
+	public ArrayList<Customers> nextCust(int i) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
 		try {
@@ -322,6 +333,12 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 		//stm.setMaxRows(1);
 		ResultSet rst = stm.executeQuery(sqlQuery);	
+<<<<<<< HEAD
+=======
+		
+		rst.first();
+		rst.relative(i);
+>>>>>>> 16659ecfedc2fa49fc1d5fa9b5c6b4efae2ee65a
 			
 			
 		rst.last();
@@ -335,6 +352,7 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 											rst.getString(7), 
 											rst.getString(8), 
 											rst.getString(9));
+<<<<<<< HEAD
 			custList.add(cust1);	
 									
 				
@@ -346,6 +364,135 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+=======
+					custList.add(cust1);
+			
+		rst.close();
+		stm.close();
+		return custList;		
+	}
+	
+	//Search for Keyword
+	public ArrayList<Products> findProducts(String str) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+		
+		String sqlQuery = "Select * from P_PRODUCTS where product_name = ? ";
+		
+		try {
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setString(1, str);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		return prodList;
+	}
+	
+	//Search for ProductID
+	public ArrayList<Products> findProducts(int num) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+				
+		String sqlQuery = "Select * from P_PRODUCTS where productid = ?";
+		
+		try {
+			
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setInt(1, num);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		return prodList;
+	}
+	
+	//Search for Price Range
+	public ArrayList<Products> findProducts(double numOne, double numTwo) {
+		ArrayList<Products> prodList = new ArrayList<Products>();
+		
+		String sqlQuery = "Select * from P_PRODUCTS where list_price Between ? And ?";
+		
+		try {
+			PreparedStatement prepState = conn.prepareStatement(sqlQuery);
+			prepState.setDouble(1, numOne);
+			prepState.setDouble(2, numTwo);
+			
+			ResultSet rst = prepState.executeQuery();
+			
+			while (rst.next())
+			{
+				Products product = new Products(rst.getInt(1), rst.getString(2), rst.getDouble(3));
+				prodList.add(product);
+				
+			}
+			
+			rst.close();
+			prepState.close();
+			
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return prodList;
+	}	
+
+public ArrayList<Customers> prevCust(int j) throws SQLException {
+	ArrayList<Customers> custList = new ArrayList<Customers>();
+	
+	String sqlQuery = "Select * from C_CUSTOMERS";
+	
+	Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	//stm.setMaxRows(1);
+	ResultSet rst = stm.executeQuery(sqlQuery);	
+		
+		
+	rst.last();
+	rst.relative(-j);
+				Customers cust1 = new Customers(rst.getInt(1), 
+										rst.getString(2), 
+										rst.getString(3), 
+										rst.getString(4),
+										rst.getString(5), 
+										rst.getString(6), 
+										rst.getString(7), 
+										rst.getString(8), 
+										rst.getString(9));
+		custList.add(cust1);	
+								
+			
+	//}			
+	
+	rst.close();
+	stm.close();
+>>>>>>> 16659ecfedc2fa49fc1d5fa9b5c6b4efae2ee65a
 	return custList;		
 }	
 }
