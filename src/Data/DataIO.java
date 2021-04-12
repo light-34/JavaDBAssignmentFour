@@ -276,7 +276,8 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		//{
 			//if(rst.next())
 			//{
-		rst.relative(1);
+		//rst.next();
+		rst.relative(i);
 				Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
@@ -305,9 +306,10 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 	//stm.setMaxRows(1);
 	ResultSet rst = stm.executeQuery(sqlQuery);	
 		
-		if(rst.relative(-j))	// or absolute()?
-		{	
-			
+		//if(rst.relative(-j))	// or absolute()?
+		//{	
+			//rst.previous(); // gives errors when i use 
+	rst.relative(-j);
 				Customers cust1 = new Customers(rst.getInt(1), 
 										rst.getString(2), 
 										rst.getString(3), 
@@ -320,7 +322,7 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 		custList.add(cust1);	
 								
 			
-	}			
+	//}			
 	
 	rst.close();
 	stm.close();
