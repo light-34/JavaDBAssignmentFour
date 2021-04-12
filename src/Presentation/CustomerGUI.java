@@ -22,6 +22,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class CustomerGUI extends JFrame {
 
@@ -90,6 +91,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblCust_ID = new JLabel("Customer ID");
+		lblCust_ID.setForeground(Color.RED);
 		lblCust_ID.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCust_ID.setBounds(10, 23, 104, 17);
 		contentPane.add(lblCust_ID);
@@ -115,7 +117,8 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(lblEmail);
 		
 		JLabel lblAutoGen = new JLabel("---> Will be auto generated for you");
-		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAutoGen.setForeground(Color.RED);
+		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblAutoGen.setBounds(229, 23, 254, 17);
 		contentPane.add(lblAutoGen);
 		
@@ -190,6 +193,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(cmbBxProv);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.setBackground(Color.GREEN);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{	
@@ -217,6 +221,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnSave);
 		
 		JButton btnDisplay = new JButton("Display");
+		btnDisplay.setBackground(Color.ORANGE);
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -239,6 +244,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnDisplay);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBackground(Color.YELLOW);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -266,6 +272,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnUpdate);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.setBackground(Color.RED);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -276,6 +283,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnExit);
 		
 		JButton btnFirst = new JButton("First");
+		btnFirst.setBackground(Color.BLUE);
 		btnFirst.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				try {
@@ -313,6 +321,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnFirst);
 		
 		JButton btnNext = new JButton("Next");
+		btnNext.setBackground(Color.CYAN);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -349,6 +358,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnNext);
 		
 		JButton btnPrev = new JButton("Previous");
+		btnPrev.setBackground(Color.CYAN);
 		btnPrev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -386,6 +396,7 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnPrev);
 		
 		JButton btnLast = new JButton("Last");
+		btnLast.setBackground(Color.BLUE);
 		btnLast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

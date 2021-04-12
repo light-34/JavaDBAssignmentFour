@@ -85,7 +85,7 @@ public class ProductGUI extends JFrame {
 		
 		JLabel lblAutoGen = new JLabel("---> Will be auto generated for you");
 		lblAutoGen.setForeground(Color.RED);
-		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAutoGen.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblAutoGen.setBounds(228, 11, 254, 17);
 		contentPane.add(lblAutoGen);
 		
