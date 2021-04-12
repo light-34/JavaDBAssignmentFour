@@ -270,10 +270,9 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		//stm.setMaxRows(1);
 		ResultSet rst = stm.executeQuery(sqlQuery);	
 			
-			if(rst.relative(i))	
+			if(rst.absolute(i))	
 			{	
-				while(rst.next())
-				{
+				
 					Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
@@ -284,8 +283,7 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 											rst.getString(8), 
 											rst.getString(9));
 			custList.add(cust1);	
-				}
-						
+									
 				
 		}			
 		

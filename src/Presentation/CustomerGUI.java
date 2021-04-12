@@ -34,7 +34,8 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtPostal;
 	private JComboBox cmbBxProv;
 	private JTextArea txtArea;
-	public int i = 1;
+	private int i = 1;
+	
 	
 
 	/**
@@ -306,7 +307,7 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.nextCust(i);
+					ArrayList<Customers> customers = dbIO.nextCust(i);		
 					i++;
 					for(Customers c : customers) // for loop to print 
 					{
