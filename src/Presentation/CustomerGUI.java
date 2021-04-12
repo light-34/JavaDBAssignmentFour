@@ -1,30 +1,25 @@
 package Presentation;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Business.Customers;
 import Data.DataIO;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 public class CustomerGUI extends JFrame {
 
@@ -37,8 +32,8 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtStreet;
 	private JTextField txtCity;
 	private JTextField txtPostal;
-	private JTable tableCustomers;
 	private JComboBox cmbBxProv;
+	private JTextArea txtArea;
 	
 
 	/**
@@ -223,21 +218,16 @@ public class CustomerGUI extends JFrame {
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.getCustomers(); // call method to return program info from database
-					for(Customers c : customers) // for loop to print 
-					{
-						System.out.println(c);
-					}
-					dbIO = null;
-					// database object is removed 
+					DataIO data = new DataIO();
 					
-					System.exit(0);
-					// exits system 
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
+					String str = "First Name" + "\t" + "Last Name\n";
+					
+					for(Customers list : data.getCustomers()) {
+						str += list.getfName() + "\t" + list.getlName() +"\n";
+					}
+					txtArea.setText(str);
+					
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -368,8 +358,8 @@ public class CustomerGUI extends JFrame {
 		btnLast.setBounds(420, 535, 89, 23);
 		contentPane.add(btnLast);
 		
-		tableCustomers = new JTable();
-		tableCustomers.setBounds(10, 209, 505, 300);
-		contentPane.add(tableCustomers);
+		txtArea = new JTextArea();
+		txtArea.setBounds(10, 204, 503, 320);
+		contentPane.add(txtArea);
 	}
 }
