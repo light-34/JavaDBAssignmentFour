@@ -201,15 +201,17 @@ public class DataIO {
 		
 		String sqlQuery = "Select * from C_CUSTOMERS";
 		
-		Statement stm = conn.createStatement();
-		stm.setMaxRows(1); // only retrieve one row 
+		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		//stm.setMaxRows(1); // only retrieve one row 
 		// could use first()???
 		ResultSet rst = stm.executeQuery(sqlQuery);
 		//rst.first(); // not working properly 
 		
 		while (rst.next())
 		{
-			Customers cust1 = new Customers(rst.getInt(1), 
+			if(rst.isFirst())
+			{
+				Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
 											rst.getString(4),
@@ -219,6 +221,7 @@ public class DataIO {
 											rst.getString(8), 
 											rst.getString(9));
 			custList.add(cust1);
+			}			
 		}
 		
 		rst.close();
@@ -230,15 +233,17 @@ public class DataIO {
 		
 		String sqlQuery = "Select * from C_CUSTOMERS";
 		
-		Statement stm = conn.createStatement();
+		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 		
 		ResultSet rst = stm.executeQuery(sqlQuery);
 		
-		rst.last(); 
+		//rst.last(); // not working properly 
 		
 		while (rst.next())
 		{
-			Customers cust1 = new Customers(rst.getInt(1), 
+			if(rst.isLast())
+			{
+				Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
 											rst.getString(4),
@@ -248,6 +253,39 @@ public class DataIO {
 											rst.getString(8), 
 											rst.getString(9));
 			custList.add(cust1);
+			}			
+		}
+		
+		rst.close();
+		stm.close();
+		return custList;		
+	}	
+	public ArrayList<Customers> nextCust() throws SQLException {
+		ArrayList<Customers> custList = new ArrayList<Customers>();
+		
+		String sqlQuery = "Select * from C_CUSTOMERS";
+		
+		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		
+		ResultSet rst = stm.executeQuery(sqlQuery);
+		
+		//rst.last(); // not working properly 
+		
+		while (rst.next())
+		{
+			if(rst.relative(1)) // doesn't work exactly right 
+			{
+				Customers cust1 = new Customers(rst.getInt(1), 
+											rst.getString(2), 
+											rst.getString(3), 
+											rst.getString(4),
+											rst.getString(5), 
+											rst.getString(6), 
+											rst.getString(7), 
+											rst.getString(8), 
+											rst.getString(9));
+			custList.add(cust1);
+			}			
 		}
 		
 		rst.close();

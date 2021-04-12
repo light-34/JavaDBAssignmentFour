@@ -311,6 +311,29 @@ public class CustomerGUI extends JFrame {
 		contentPane.add(btnFirst);
 		
 		JButton btnNext = new JButton("Next ");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					ArrayList<Customers> customers = dbIO.nextCust(); // call method to return program info from database
+					for(Customers c : customers) // for loop to print 
+					{
+						System.out.println(c.getfName());
+					}
+					dbIO = null;
+					// database object is removed 
+					
+					//System.exit(0);
+					// exits system 
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNext.setBounds(142, 536, 89, 23);
 		contentPane.add(btnNext);
 		
