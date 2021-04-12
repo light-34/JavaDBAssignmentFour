@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import Business.Customers;
 import Business.Products;
-import Presentation.CustomerGUI;
 
 
 
@@ -175,7 +174,6 @@ public class DataIO {
 		}
 	
 	public String[] comboBoxLoader () throws SQLException {
-		//ArrayList<String> arrList = new ArrayList<>();
 		String [] list = new String[14];
 		int i = 0;
 		
@@ -195,6 +193,8 @@ public class DataIO {
 		
 		return list;
 	}
+	
+	
 	// get the first result in result set - cust table 
 	public ArrayList<Customers> firstCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
@@ -227,7 +227,9 @@ public class DataIO {
 		rst.close();
 		stm.close();
 		return custList;		
-	}	
+	}
+	
+	
 	public ArrayList<Customers> lastCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
@@ -261,7 +263,7 @@ public class DataIO {
 		return custList;		
 	}	
 
-public ArrayList<Customers> nextCust(int i) throws SQLException {
+	public ArrayList<Customers> nextCust(int i) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
 		String sqlQuery = "Select * from C_CUSTOMERS";

@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import Business.Customers;
 import Business.Products;
 import Data.DataIO;
 import javax.swing.JMenuBar;
@@ -14,7 +12,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
