@@ -267,17 +267,14 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		String sqlQuery = "Select * from C_CUSTOMERS";
 		
 		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-		//stm.setMaxRows(1);
 		ResultSet rst = stm.executeQuery(sqlQuery);	
-			
-			//if(rst.relative(i))	// or absolute()?
-			//{			
-		//while(rst.next())
-		//{
-			//if(rst.next())
-			//{
-		//rst.next();
+		
+		rst.first();
 		rst.relative(i);
+		
+		//if (rst.next())
+		//{
+			
 				Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
@@ -288,6 +285,10 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 											rst.getString(8), 
 											rst.getString(9));
 					custList.add(cust1);
+			
+			
+		//}
+				
 			//}
 			
 		//}
@@ -306,9 +307,8 @@ public ArrayList<Customers> prevCust(int j) throws SQLException {
 	//stm.setMaxRows(1);
 	ResultSet rst = stm.executeQuery(sqlQuery);	
 		
-		//if(rst.relative(-j))	// or absolute()?
-		//{	
-			//rst.previous(); // gives errors when i use 
+		
+	rst.last();
 	rst.relative(-j);
 				Customers cust1 = new Customers(rst.getInt(1), 
 										rst.getString(2), 

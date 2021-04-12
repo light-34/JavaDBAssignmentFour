@@ -34,8 +34,8 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtPostal;
 	private JComboBox cmbBxProv;
 	private JTextArea txtArea;
-	private int i = 1;
-	private int j = -1;
+	private int i = 0;
+	private int j = 0;
 	
 	
 
@@ -284,7 +284,7 @@ public class CustomerGUI extends JFrame {
 					ArrayList<Customers> customers = dbIO.firstCust();
 					// call method to return program info from database
 					i = 1;
-					j = -1;
+					j = 1;
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -322,7 +322,7 @@ public class CustomerGUI extends JFrame {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.nextCust(i);		
 					i++;
-					//j++;
+					j++;
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -358,7 +358,7 @@ public class CustomerGUI extends JFrame {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.prevCust(j);		
 					j--;
-					//i--;
+					i--;
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -396,7 +396,7 @@ public class CustomerGUI extends JFrame {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.lastCust(); // call method to return program info from database
 					i = 1;
-					j = -1;
+					j = 1;
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
