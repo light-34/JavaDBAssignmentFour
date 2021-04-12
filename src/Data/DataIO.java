@@ -198,84 +198,135 @@ public class DataIO {
 	// get the first result in result set - cust table 
 	public ArrayList<Customers> firstCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
-		
-		String sqlQuery = "Select * from C_CUSTOMERS";
-		
-		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-		//stm.setMaxRows(1); // only retrieve one row 
-		// could use first()???
-		ResultSet rst = stm.executeQuery(sqlQuery);
-		//rst.first(); // not working properly 
-		
-		while (rst.next())
-		{
-			if(rst.isFirst())
+		try {
+			String sqlQuery = "Select * from C_CUSTOMERS";
+			
+			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			//stm.setMaxRows(1); // only retrieve one row 
+			// could use first()???
+			ResultSet rst = stm.executeQuery(sqlQuery);
+			//rst.first(); // not working properly 
+			
+			while (rst.next())
 			{
-				Customers cust1 = new Customers(rst.getInt(1), 
-											rst.getString(2), 
-											rst.getString(3), 
-											rst.getString(4),
-											rst.getString(5), 
-											rst.getString(6), 
-											rst.getString(7), 
-											rst.getString(8), 
-											rst.getString(9));
-			custList.add(cust1);
+				if(rst.isFirst())
+				{
+					Customers cust1 = new Customers(rst.getInt(1), 
+												rst.getString(2), 
+												rst.getString(3), 
+												rst.getString(4),
+												rst.getString(5), 
+												rst.getString(6), 
+												rst.getString(7), 
+												rst.getString(8), 
+												rst.getString(9));
+				custList.add(cust1);
+				}			
 			}			
-		}
-		
-		rst.close();
-		stm.close();
-		return custList;		
+			rst.close();
+			stm.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return custList;	
 	}	
 	public ArrayList<Customers> lastCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
-		String sqlQuery = "Select * from C_CUSTOMERS";
-		
-		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-		
-		ResultSet rst = stm.executeQuery(sqlQuery);
-		
-		//rst.last(); // not working properly 
-		
-		while (rst.next())
-		{
-			if(rst.isLast())
+		try {
+			String sqlQuery = "Select * from C_CUSTOMERS";
+			
+			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			
+			ResultSet rst = stm.executeQuery(sqlQuery);
+			
+			//rst.last(); // not working properly 
+			
+			while (rst.next())
 			{
-				Customers cust1 = new Customers(rst.getInt(1), 
-											rst.getString(2), 
-											rst.getString(3), 
-											rst.getString(4),
-											rst.getString(5), 
-											rst.getString(6), 
-											rst.getString(7), 
-											rst.getString(8), 
-											rst.getString(9));
-			custList.add(cust1);
-			}			
+				if(rst.isLast())
+				{
+					Customers cust1 = new Customers(rst.getInt(1), 
+												rst.getString(2), 
+												rst.getString(3), 
+												rst.getString(4),
+												rst.getString(5), 
+												rst.getString(6), 
+												rst.getString(7), 
+												rst.getString(8), 
+												rst.getString(9));
+				custList.add(cust1);
+				}			
+			}
+			
+			rst.close();
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		rst.close();
-		stm.close();
 		return custList;		
 	}	
 
 public ArrayList<Customers> nextCust(int i) throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 		
+		try {
+			String sqlQuery = "Select * from C_CUSTOMERS";
+			
+			Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rst = stm.executeQuery(sqlQuery);	
+			
+			//rst.first();
+			int pos = rst.getRow(); 
+			rst.absolute(pos);
+			
+			rst.next();
+			//{
+				
+					Customers cust1 = new Customers(rst.getInt(1), 
+												rst.getString(2), 
+												rst.getString(3), 
+												rst.getString(4),
+												rst.getString(5), 
+												rst.getString(6), 
+												rst.getString(7), 
+												rst.getString(8), 
+												rst.getString(9));
+						custList.add(cust1);
+				
+				
+			//}
+					
+				//}
+				
+			//}
+			rst.absolute(pos + 1);	
+			rst.close();
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return custList;		
+	}	
+
+public ArrayList<Customers> prevCust(int j) throws SQLException {
+	ArrayList<Customers> custList = new ArrayList<Customers>();
+	
+	try {
 		String sqlQuery = "Select * from C_CUSTOMERS";
 		
 		Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		//stm.setMaxRows(1);
 		ResultSet rst = stm.executeQuery(sqlQuery);	
-		
-		rst.first();
-		rst.relative(i);
-		
-		//if (rst.next())
-		//{
 			
-				Customers cust1 = new Customers(rst.getInt(1), 
+			
+		rst.last();
+		rst.relative(-j);
+					Customers cust1 = new Customers(rst.getInt(1), 
 											rst.getString(2), 
 											rst.getString(3), 
 											rst.getString(4),
@@ -284,48 +335,17 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 											rst.getString(7), 
 											rst.getString(8), 
 											rst.getString(9));
-					custList.add(cust1);
-			
-			
-		//}
+			custList.add(cust1);	
+									
 				
-			//}
-			
-		//}
-			
+		//}			
+		
 		rst.close();
 		stm.close();
-		return custList;		
-	}	
-
-public ArrayList<Customers> prevCust(int j) throws SQLException {
-	ArrayList<Customers> custList = new ArrayList<Customers>();
-	
-	String sqlQuery = "Select * from C_CUSTOMERS";
-	
-	Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-	//stm.setMaxRows(1);
-	ResultSet rst = stm.executeQuery(sqlQuery);	
-		
-		
-	rst.last();
-	rst.relative(-j);
-				Customers cust1 = new Customers(rst.getInt(1), 
-										rst.getString(2), 
-										rst.getString(3), 
-										rst.getString(4),
-										rst.getString(5), 
-										rst.getString(6), 
-										rst.getString(7), 
-										rst.getString(8), 
-										rst.getString(9));
-		custList.add(cust1);	
-								
-			
-	//}			
-	
-	rst.close();
-	stm.close();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	return custList;		
 }	
 }
