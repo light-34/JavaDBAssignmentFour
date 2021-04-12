@@ -3,6 +3,8 @@ package Data;
 import java.sql.*;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Business.Customers;
 import Business.Products;
 
@@ -217,7 +219,7 @@ public class DataIO {
 		return custList;
 	}
 
-	public ArrayList<Customers> nextCust(int i) throws SQLException {
+	public ArrayList<Customers> nextCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
 		try {
@@ -239,12 +241,14 @@ public class DataIO {
 			stm.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			pos -=1;
+			JOptionPane.showMessageDialog(null,"There are no next records"); 
 			e.printStackTrace();
 		}
 		return custList;
 	}
 
-	public ArrayList<Customers> prevCust(int j) throws SQLException {
+	public ArrayList<Customers> prevCust() throws SQLException {
 		ArrayList<Customers> custList = new ArrayList<Customers>();
 
 		try {
@@ -266,7 +270,9 @@ public class DataIO {
 			rst.close();
 			stm.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block	
+			pos +=1;
+			JOptionPane.showMessageDialog(null,"There are no prev records"); 
 			e.printStackTrace();
 		}
 		return custList;

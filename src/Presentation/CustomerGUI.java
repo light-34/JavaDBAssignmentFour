@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Business.Customers;
 import Data.DataIO;
+
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -18,6 +20,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class CustomerGUI extends JFrame {
@@ -33,8 +36,6 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtPostal;
 	private JComboBox cmbBxProv;
 	private JTextArea txtArea;
-	private int i = 0;
-	private int j = 0;
 	
 
 	/**
@@ -207,7 +208,7 @@ public class CustomerGUI extends JFrame {
 					data.insertCustomer(customer);
 					
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+					// TODO Auto-generated catch block					 
 					e1.printStackTrace();
 				}
 			}
@@ -280,9 +281,7 @@ public class CustomerGUI extends JFrame {
 				try {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.firstCust();
-					// call method to return program info from database
-					i = 1;
-					j = 1;
+					// call method to return program info from database					
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -318,9 +317,8 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.nextCust(i);		
-					i++;
-					j++;
+					ArrayList<Customers> customers = dbIO.nextCust();		
+					
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -342,6 +340,7 @@ public class CustomerGUI extends JFrame {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,"There are no next records"); 
 					e1.printStackTrace();
 				}
 			}
@@ -354,9 +353,7 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.prevCust(j);		
-					j--;
-					i--;
+					ArrayList<Customers> customers = dbIO.prevCust();						
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
@@ -380,6 +377,7 @@ public class CustomerGUI extends JFrame {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,"There are no prev records"); 
 					e1.printStackTrace();
 				}
 			}
@@ -393,8 +391,7 @@ public class CustomerGUI extends JFrame {
 				try {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.lastCust(); // call method to return program info from database
-					i = 1;
-					j = 1;
+					
 					for(Customers c : customers) // for loop to print 
 					{
 						String cust_id = String.valueOf(c.getCustomerid());
