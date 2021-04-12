@@ -270,7 +270,7 @@ public ArrayList<Customers> nextCust(int i) throws SQLException {
 		//stm.setMaxRows(1);
 		ResultSet rst = stm.executeQuery(sqlQuery);	
 			
-			if(rst.absolute(i))	
+			if(rst.relative(i))	// or absolute()?
 			{	
 				
 					Customers cust1 = new Customers(rst.getInt(1), 

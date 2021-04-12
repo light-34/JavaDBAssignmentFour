@@ -311,7 +311,7 @@ public class CustomerGUI extends JFrame {
 					i++;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						System.out.println(c.getfName() + " " + c.getlName());
 					}
 					dbIO = null;
 					// database object is removed 
