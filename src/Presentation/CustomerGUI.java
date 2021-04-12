@@ -34,6 +34,9 @@ public class CustomerGUI extends JFrame {
 	private JTextField txtPostal;
 	private JComboBox cmbBxProv;
 	private JTextArea txtArea;
+	private int i = 0;
+	private int j = 0;
+	
 	
 
 	/**
@@ -278,10 +281,22 @@ public class CustomerGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {				
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.firstCust(); // call method to return program info from database
+					ArrayList<Customers> customers = dbIO.firstCust();
+					// call method to return program info from database
+					i = 1;
+					j = 1;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
@@ -300,15 +315,62 @@ public class CustomerGUI extends JFrame {
 		btnFirst.setBounds(10, 535, 89, 23);
 		contentPane.add(btnFirst);
 		
-		JButton btnNext = new JButton("Next ");
+		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DataIO dbIO = new DataIO();
-					ArrayList<Customers> customers = dbIO.nextCust(); // call method to return program info from database
+					ArrayList<Customers> customers = dbIO.nextCust(i);		
+					i++;
+					j++;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
+						txtPostal.setText(c.getPostalCode());		
+					}
+					dbIO = null;
+					// database object is removed 				
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNext.setBounds(142, 536, 89, 23);
+		contentPane.add(btnNext);
+		
+		JButton btnPrev = new JButton("Previous");
+		btnPrev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DataIO dbIO = new DataIO();
+					ArrayList<Customers> customers = dbIO.prevCust(j);		
+					j--;
+					i--;
+					for(Customers c : customers) // for loop to print 
+					{
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
@@ -324,10 +386,6 @@ public class CustomerGUI extends JFrame {
 				}
 			}
 		});
-		btnNext.setBounds(142, 536, 89, 23);
-		contentPane.add(btnNext);
-		
-		JButton btnPrev = new JButton("Previous");
 		btnPrev.setBounds(281, 536, 89, 23);
 		contentPane.add(btnPrev);
 		
@@ -337,9 +395,20 @@ public class CustomerGUI extends JFrame {
 				try {
 					DataIO dbIO = new DataIO();
 					ArrayList<Customers> customers = dbIO.lastCust(); // call method to return program info from database
+					i = 1;
+					j = 1;
 					for(Customers c : customers) // for loop to print 
 					{
-						System.out.println(c.getfName());
+						String cust_id = String.valueOf(c.getCustomerid());
+						txtCustId.setText(cust_id);
+						txtFName.setText(c.getfName());
+						txtLName.setText(c.getlName());			
+						txtPhoneNo.setText(c.getPhoneNo());						
+						txtEmail.setText(c.getEmail());	
+						txtStreet.setText(c.getStreet());	
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
+						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
 					// database object is removed 
