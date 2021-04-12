@@ -294,8 +294,8 @@ public class CustomerGUI extends JFrame {
 						txtPhoneNo.setText(c.getPhoneNo());						
 						txtEmail.setText(c.getEmail());	
 						txtStreet.setText(c.getStreet());	
-						txtCity.setText(c.getCity());	
-						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
 						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
@@ -332,9 +332,9 @@ public class CustomerGUI extends JFrame {
 						txtPhoneNo.setText(c.getPhoneNo());						
 						txtEmail.setText(c.getEmail());	
 						txtStreet.setText(c.getStreet());	
-						txtCity.setText(c.getCity());	
-						//cmbBxProv.setText(c.getProvince());	// issues here 
-						txtPostal.setText(c.getPostalCode());	
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
+						txtPostal.setText(c.getPostalCode());		
 					}
 					dbIO = null;
 					// database object is removed 				
@@ -368,8 +368,8 @@ public class CustomerGUI extends JFrame {
 						txtPhoneNo.setText(c.getPhoneNo());						
 						txtEmail.setText(c.getEmail());	
 						txtStreet.setText(c.getStreet());	
-						txtCity.setText(c.getCity());	
-						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
 						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
@@ -406,8 +406,8 @@ public class CustomerGUI extends JFrame {
 						txtPhoneNo.setText(c.getPhoneNo());						
 						txtEmail.setText(c.getEmail());	
 						txtStreet.setText(c.getStreet());	
-						txtCity.setText(c.getCity());	
-						//cmbBxProv.setText(c.getProvince());	// issues here 
+						txtCity.setText(c.getCity());
+						cmbBxProv.setSelectedItem(c.getProvince());
 						txtPostal.setText(c.getPostalCode());	
 					}
 					dbIO = null;
