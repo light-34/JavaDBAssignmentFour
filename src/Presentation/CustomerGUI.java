@@ -1,6 +1,5 @@
 package Presentation;
 
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,7 +35,6 @@ public class CustomerGUI extends JFrame {
 	private JTextArea txtArea;
 	private int i = 0;
 	private int j = 0;
-	
 	
 
 	/**
